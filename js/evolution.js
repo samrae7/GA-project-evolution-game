@@ -1,32 +1,28 @@
 $(document).on('ready',function() {
-  console.log('js linked');
-  //create div element with class bug
-  // var bug = $('<div>');
-  // bug.addClass('bug');
-  // bug.css({top:20px, left:20px}):
-    //append it to body
-  //  
 
-  var bug = $('<div>');
-  bug.addClass('bug');
-  bug.css('top',randomHeight)
-  bug.css('left',randomWidth)
-  $('.field').append(bug);
-  $('.field').append(bug);
+console.log('js linked');
 
-  
-  //generate random absolute position based onwidth and height of bug-field
+//generate random absolute position based on width and height of bug-field
 function randomHeight() {
-    var fieldHeight = $('.field').height();
-    randomHeight =Math.round(Math.random()*fieldHeight);
-    return (randomHeight+'px');
+  var fieldHeight = $('.field').height();
+  var randomHeight =Math.round(Math.random()*(fieldHeight-20));
+  return (randomHeight+'px');
   };
 
 function randomWidth() {
-   var fieldWidth = $('.field').width();
- randomWidth = Math.round(Math.random()*fieldWidth);
- return (randomWidth+'px');
+  var fieldWidth = $('.field').width();
+  var randomWidth = Math.round(Math.random()*(fieldWidth-20));
+  return (randomWidth+'px');
 }
-  //write function to create lots
 
+//create 10 bugs with random positions with '.field'
+for (i=0;i<10;i++) {
+  var bug = $('<div id="'+i+'">');
+  bug.addClass('bug');
+  bug.css('top',randomHeight())
+  bug.css('left',randomWidth())
+  $('.field').append(bug);
+  $('.field').append(bug);
+};
+  
 });
