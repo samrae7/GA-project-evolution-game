@@ -4,17 +4,32 @@ body{
   font-size: 18px;
 }
 
+.infoBox p {
+  margin-left: 10px;
+}
+
 .field {
   background-image: url('../images/grass3.jpg');
   width: 766px;
   height:510px;
   position:relative;
   margin:0;
+  float:left;
+}
+
+.infoBox {
+  background-color: pink;
+  height: 510px;
+  width:350px;
+  float:left;
 }
 
 .bug {
   width:20px;
   height:20px;
-  background-color: blue;
   position:absolute;
+}
+
+.eatenBug {
+  display:none;
 }
