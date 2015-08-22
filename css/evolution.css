@@ -1,0 +1,20 @@
+body{
+  height:auto;
+  width:auto;
+  font-size: 18px;
+}
+
+.field {
+  background-image: url('../images/grass3.jpg');
+  width: 766px;
+  height:510px;
+  position:relative;
+  margin:0;
+}
+
+.bug {
+  width:10px;
+  height:10px;
+  background-color: blue;
+  position:absolute;
+}
