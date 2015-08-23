@@ -25,11 +25,44 @@ body{
 }
 
 .bug {
-  width:20px;
-  height:20px;
+  width:63px;
+  height:80px;
   position:absolute;
+  background-repeat: no-repeat;
+}
+/*
+.greenBug1 {
+ background-image: url('../images/green-bug1.png')
 }
 
+.greenBug2 {
+ background-image: url('../images/green-bug2.png')
+}
+
+.greenBug3 {
+ background-image: url('../images/green-bug3.png')
+}
+
+.greenBug4 {
+ background-image: url('../images/green-bug4.png')
+}
+
+.blueBug1 {
+ background-image: url('../images/blue-bug1.png')
+}
+
+.blueBug2 {
+ background-image: url('../images/blue-bug2.png')
+}
+
+.blueBug3 {
+ background-image: url('../images/blue-bug3.png')
+}
+
+.blueBug4 {
+ background-image: url('../images/blue-bug4.png')
+}
+*/
 .eatenBug {
   display:none;
 }

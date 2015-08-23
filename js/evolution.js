@@ -7,13 +7,13 @@ var bugCount=0;
 //generate random absolute position based on width and height of bug-field
 function randomHeight() {
   var fieldHeight = $('.field').height();
-  var randomHeight =Math.round(Math.random()*(fieldHeight-20));
+  var randomHeight =Math.round(Math.random()*(fieldHeight-80));
   return (randomHeight+'px');
   };
 
 function randomWidth() {
   var fieldWidth = $('.field').width();
-  var randomWidth = Math.round(Math.random()*(fieldWidth-20));
+  var randomWidth = Math.round(Math.random()*(fieldWidth-80));
   return (randomWidth+'px');
 }
 
@@ -27,12 +27,14 @@ for (i=17;i<=20;i++) {
   makeBug(i,'green')
 }
 
-function makeBug(n, colour) {
+function makeBug(n,colour) {
   var bug = $('<div id="bug'+n+'">');
   bug.addClass('bug');
+  var imageChoice=Math.ceil(Math.random()*4);
+  // bug.addClass(colour+'Bug'+imageChoice);
+  bug.css('background-image','url("../images/'+colour+'-bug'+imageChoice+'.png")')
   bug.css('top',randomHeight())
   bug.css('left',randomWidth())
-  bug.css('background-color',colour)
   $('.field').append(bug);
 };
 
