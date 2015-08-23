@@ -116,22 +116,25 @@ $('#start').on('click',startGame);
 //   //   bar.width(percentage+'%');
 //   // }, 10);
 
-  function startTimer(){
-    // var id=window.setInterval(callback, delay);
-    var percentage=100;
-    count=0;
-    var timer = setInterval(function() {
-      var bar = $('.timerBar');
-      percentage-=0.2;
-      bar.width(percentage+'%');
-      if(count > 500) {clearInterval(timer);
-         displayResults();
-       }
-      count++;
-    }, 10);
+function startTimer(){
+  // var id=window.setInterval(callback, delay);
+  var percentage=100;
+  count=0;
+  var timer = setInterval(function() {
+    var bar = $('.timerBar');
+    percentage-=0.2;
+    bar.width(percentage+'%');
+    if(count > 500) {clearInterval(timer);
+       displayResults();
+     }
+    count++;
+  }, 10);
 }
 
-
+function displayResults() {
+  $('.field').hide()
+  $('.gameScreen').prepend('<div class="results"><p>You ate '+bugCount+' bugs</p></div>')
+}
 
 });
 

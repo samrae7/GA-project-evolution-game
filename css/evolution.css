@@ -23,6 +23,17 @@ button {
   display:none;
 }
 
+.results {
+  width: 766px;
+  height:510px;
+  border:1px solid black;
+}
+
+.results p {
+  margin:0;
+  padding:18px;
+}
+
 .infoBox p {
   margin-left: 10px;
 }
