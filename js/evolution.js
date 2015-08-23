@@ -11,6 +11,39 @@ function randomHeight() {
   return (randomHeight+'px');
   };
 
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+console.log(randomHeight());
+
 function randomWidth() {
   var fieldWidth = $('.field').width();
   var randomWidth = Math.round(Math.random()*(fieldWidth-80));
@@ -32,7 +65,7 @@ function makeBug(n,colour) {
   bug.addClass('bug');
   var imageChoice=Math.ceil(Math.random()*4);
   // bug.addClass(colour+'Bug'+imageChoice);
-  bug.css('background-image','url("../images/'+colour+'-bug'+imageChoice+'.png")')
+  bug.html('<img src="../images/'+colour+'-bug'+imageChoice+'.png">')
   bug.css('top',randomHeight())
   bug.css('left',randomWidth())
   $('.field').append(bug);
@@ -54,7 +87,51 @@ function addCount(){
 }
 
 function updateScore(){
-  $('.infoBox').html('<p> Bug Count:'+bugCount+'</p>')
+  $('.infoBox').html('<p> Bugs eaten: '+bugCount+'</p>')
+}
+
+function startGame() {
+  $('.introBox').hide();
+  $('.gameScreen').show();
+  $('.infoBox').show();
+  startTimer();
 }
   
+//make timer bar
+
+//add event listener to start game
+$('#start').on('click',startGame);
+
+// function endTimer() {
+//   //clears startTimer and brings up results of that round
+//   alert('time up'); 
+// }
+
+// function startTimer() {
+//   setTimeout(endTimer,5000);
+//   // var percentage=100;
+//   // var timer = setInterval(function() {
+//   //   var bar = $('.timerBar');
+//   //   percentage-=0.2;
+//   //   bar.width(percentage+'%');
+//   // }, 10);
+
+  function startTimer(){
+    // var id=window.setInterval(callback, delay);
+    var percentage=100;
+    count=0;
+    var timer = setInterval(function() {
+      var bar = $('.timerBar');
+      percentage-=0.2;
+      bar.width(percentage+'%');
+      if(count > 500) {clearInterval(timer);
+         displayResults();
+       }
+      count++;
+    }, 10);
+}
+
+
+
 });
+
