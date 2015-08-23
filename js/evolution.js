@@ -2,7 +2,28 @@ $(document).on('ready',function() {
 
 console.log('js linked');
 
-var bugCount=0;
+var round1 = {
+  target: 7,
+  bugsTotal: 20,
+  bugsGreen: 4,
+  bugsBlue: 16,
+  bugsEatenTotal: 0,
+  bugsEatenGreen: 0,
+  bugsEatenBlue: 0,
+  displayTarget: function() {
+  $('.introBox').prepend('<p>Eat '+round1.target+' bugs to survive the winter.')
+    }
+}
+
+var round2 = {
+  target: 9,
+  bugsTotal: 20,
+  bugsGreen:0,
+  bugsBlue:0,
+  bugsEatenTotal: 0,
+  bugsEatenGreen: 0,
+  bugsEatenBlue: 0
+}
 
 //generate random absolute position based on width and height of bug-field
 function randomHeight() {
@@ -10,39 +31,6 @@ function randomHeight() {
   var randomHeight =Math.round(Math.random()*(fieldHeight-80));
   return (randomHeight+'px');
   };
-
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
-console.log(randomHeight());
 
 function randomWidth() {
   var fieldWidth = $('.field').width();
@@ -82,12 +70,12 @@ function eatBug(x){
 }
 
 function addCount(){
-  bugCount++;
+  round1.bugsEatenTotal++;
   updateScore();
 }
 
 function updateScore(){
-  $('.infoBox').html('<p> Bugs eaten: '+bugCount+'</p>')
+  $('.infoBox').html('<p> Bugs eaten: '+round1.bugsEatenTotal+'</p>')
 }
 
 function startGame() {
@@ -97,24 +85,12 @@ function startGame() {
   startTimer();
 }
   
-//make timer bar
+
+
+round1.displayTarget();
 
 //add event listener to start game
 $('#start').on('click',startGame);
-
-// function endTimer() {
-//   //clears startTimer and brings up results of that round
-//   alert('time up'); 
-// }
-
-// function startTimer() {
-//   setTimeout(endTimer,5000);
-//   // var percentage=100;
-//   // var timer = setInterval(function() {
-//   //   var bar = $('.timerBar');
-//   //   percentage-=0.2;
-//   //   bar.width(percentage+'%');
-//   // }, 10);
 
 function startTimer(){
   // var id=window.setInterval(callback, delay);
@@ -132,9 +108,21 @@ function startTimer(){
 }
 
 function displayResults() {
-  $('.field').hide()
-  $('.gameScreen').prepend('<div class="results"><p>You ate '+bugCount+' bugs</p></div>')
+  $('.field').hide();
+  var results = $('<div class="results"></div>');
+  results.prependTo('.gameScreen');
+  if (round1.bugsEatenTotal>=round1.target){
+    results.prepend('<p>You survived the winter. This year you will need to eat '+round2.target+' bugs to survive</p>');
+  } else if (round1.bugsEatenTotal<round1.target) {
+    results.prepend('<p>You didn\'t eat enough bugs to survive the winter.</p>');
+  }
+  results.prepend('<p>You ate '+round1.bugsEatenTotal+' bugs</p>');
+
 }
+
+// function round1.displayTarget() {
+//   $('.introBox').prepend('<p>Eat '+round1.target+' bugs to survive the winter.')
+// }
 
 });
 

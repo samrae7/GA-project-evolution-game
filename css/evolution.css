@@ -9,10 +9,15 @@ body{
   height:560px;
   background-color: blue;
   text-align: center;
+  float:left;
   }
 
+.introBox p {
+  margin-top: 200px;
+}
+
 button {
-  margin-top:250px;
+  margin-top:14px;
 }
 
 .infoBox {
