@@ -40,12 +40,21 @@ function randomWidth() {
 
 //create 10 bugs with random positions with '.field'
 //??QUESTION: I wanted to have a 'bug' constructor that I could use here but it became confusing with jquery as jquery is essentially creating an array of objects(divs) that I then call using $/Jquery to add properties to. I couldn't fugure out how this would work in conjuction with a constructor function ( or even just defining the bugs as object literals)
-for (i=0;i<16;i++) {
-  makeBug(i,'blue')
+
+function clearBugs() {
+  $('.bug').remove();
+  console.log('bugs cleared');
 }
 
-for (i=17;i<=20;i++) {
-  makeBug(i,'green')
+function populateField() {
+  for (i=0;i<16;i++) {
+    makeBug(i,'blue')
+  }
+
+  for (i=17;i<=20;i++) {
+    makeBug(i,'green')
+  };
+  addClickEventBugs();
 }
 
 function makeBug(n,colour) {
@@ -59,33 +68,56 @@ function makeBug(n,colour) {
   $('.field').append(bug);
 };
 
-//put click event on all bugs so that they dissapear when clicked
-$('.bug').on('click', function(){
-  eatBug(this);
-  addCount();
-});
+//put click event on all bugs so that they dissapear when clicked and increase the Score by one
+function addClickEventBugs() {
+  $('.bug').on('click', function(){
+    eatBug(this);
+    addScore();
+  });
+}
 
 function eatBug(x){
   $(x).addClass('eatenBug');
 }
 
-function addCount(){
+function addScore(){
   round1.bugsEatenTotal++;
-  updateScore();
+  updateScoreDisplay();
 }
 
-function updateScore(){
+function resetScore() {
+  round1.bugsEatenTotal=0;
+  updateScoreDisplay();
+}
+
+
+function updateScoreDisplay(){
   $('.infoBox').html('<p> Bugs eaten: '+round1.bugsEatenTotal+'</p>')
+}
+
+function startNextRound() {
+  $('.results').hide();
+  $('.gameScreen').show();
+  $('.field').show();
+  resetScore();
+  $('.infoBox').show();
+  clearBugs();
+  populateField();
+  startTimer()
 }
 
 function startGame() {
   $('.introBox').hide();
+  populateField();
   $('.gameScreen').show();
+  $('.field').show();
   $('.infoBox').show();
   startTimer();
-}
-  
+  //clearScore
 
+  //populate bugs
+
+}
 
 round1.displayTarget();
 
@@ -109,13 +141,21 @@ function startTimer(){
 
 function displayResults() {
   $('.field').hide();
+
   var results = $('<div class="results"></div>');
   results.prependTo('.gameScreen');
+
   if (round1.bugsEatenTotal>=round1.target){
+    var nextRoundButton = $('<button class="nextYear">Next year</button>');
+    results.prepend(nextRoundButton);
     results.prepend('<p>You survived the winter. This year you will need to eat '+round2.target+' bugs to survive</p>');
   } else if (round1.bugsEatenTotal<round1.target) {
+    var tryAgainButton = $('<button class="tryAgain">Try Again</button>');
+    results.prepend(tryAgainButton);
+    tryAgainButton.on('click',startNextRound);
     results.prepend('<p>You didn\'t eat enough bugs to survive the winter.</p>');
   }
+
   results.prepend('<p>You ate '+round1.bugsEatenTotal+' bugs</p>');
 
 }
