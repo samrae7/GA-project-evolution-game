@@ -7,7 +7,7 @@ var currentRound;
 
 var rounds = {
   round1: {
-    number:1,
+    number:1, 
     target: 5,
     bugsGreen: 4,
     bugsBlue: 16,
@@ -145,7 +145,7 @@ function resetScore() {
 
 
 function updateScoreDisplay(){
-  $('.bugCount').html('<p> Bugs eaten: '+currentRound.bugsEatenTotal+'</p>')
+  $('.bugCount').html('Bugs eaten: '+currentRound.bugsEatenTotal)
 }
 
 function startGame() {
@@ -195,7 +195,7 @@ function calculateGreenBlueRatio() {
 function updateInfoBox() {
   //put information (round name, target, bugs eaten so far) in info box
 var infoBox = $('.infoBox');
-infoBox.html('<p>Round '+currentRound.number+'</p>');
+infoBox.html('<h2>Round '+currentRound.number+'</h2>');
 infoBox.append('<p>Target: '+currentRound.target+'</p>');
 
 infoBox.append('<p class="bugCount">Bugs eaten: '+currentRound.bugsEatenTotal+'</p>');
