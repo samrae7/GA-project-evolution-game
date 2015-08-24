@@ -125,7 +125,7 @@ function resetScore(round) {
 
 
 function updateScoreDisplay(){
-  $('.infoBox.bugCount').html('<p> Bugs eaten: '+currentRound.bugsEatenTotal+'</p>')
+  $('.bugCount').html('<p> Bugs eaten: '+currentRound.bugsEatenTotal+'</p>')
 }
 
 function startGame() {
@@ -165,7 +165,11 @@ $('.results').hide();
 function updateInfoBox() {
   //put information (round name, target, bugs eaten so far) in info box
 var infoBox = $('.infoBox');
-infoBox.append('<p class="bugCount">Round '+currentRound.number+'</p>');
+infoBox.html('<p>Round '+currentRound.number+'</p>');
+infoBox.append('<p>Target: '+currentRound.target+'</p>');
+
+infoBox.append('<p class="bugCount">Bugs eaten: '+currentRound.bugsEatenTotal+'</p>');
+
 }
 
 //NB:at present the two functions startNextRound() and restartRound() are the same
@@ -196,13 +200,18 @@ function displayResults() {
   var results = $('<div class="results"></div>');
   results.prependTo('.gameScreen');
 
-  if (currentRound.bugsEatenTotal>=currentRound.target){
-    var nextRoundButton = $('<button class="nextYear">Next year</button>');
-    results.prepend(nextRoundButton);
-    nextRoundButton.on('click',startNextRound);
+  var nextRound = rounds['round'+(currentRound.number+1)];
 
-    var nextRound = rounds['round'+(currentRound.number+1)];
-    results.prepend('<p>You survived the winter. This year you will need to eat '+nextRound.target+' bugs to survive</p>');
+  if (currentRound.bugsEatenTotal>=currentRound.target) {
+    if (currentRound.number===4) {
+       results.prepend('<p>Well done! You survived your fourth winter and you will be able to mate and pas on you genes</p>');
+      } else {
+      var nextRoundButton = $('<button class="nextYear">Next year</button>');
+      results.prepend(nextRoundButton);
+      nextRoundButton.on('click',startNextRound);
+
+      results.prepend('<p>You survived the winter. This year you will need to eat '+nextRound.target+' bugs to survive</p>');
+      }
   } else if (currentRound.bugsEatenTotal<currentRound.target) {
     var tryAgainButton = $('<button class="tryAgain">Try Again</button>');
     results.prepend(tryAgainButton);
