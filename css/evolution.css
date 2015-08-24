@@ -38,6 +38,12 @@ button.nextYear, .tryAgain {
   display:none;
 }
 
+img.bugIconStart {
+  display: block;
+  margin: 0 auto;
+  height:40px;
+}
+
 .results {
   width: 766px;
   height:510px;

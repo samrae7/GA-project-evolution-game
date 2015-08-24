@@ -8,8 +8,7 @@ var currentRound;
 var rounds = {
   round1: {
     number:1,
-    target: 3,
-    bugsTotal: 20,
+    target: 5,
     bugsGreen: 4,
     bugsBlue: 16,
     bugsEatenTotal: 0,
@@ -21,8 +20,7 @@ var rounds = {
     },
   round2: {
     number:2,
-    target: 4,
-    bugsTotal: 20,
+    target: 7,
     bugsGreen:0,
     bugsBlue:0,
     bugsEatenTotal: 0,
@@ -33,8 +31,7 @@ var rounds = {
 
   round3: {
     number:3,
-    target:5,
-    bugsTotal: 20,
+    target:7,
     bugsGreen:0,
     bugsBlue:0,
     bugsEatenTotal: 0,
@@ -45,8 +42,7 @@ var rounds = {
 
   round4: {
     number: 4,
-    target: 6,
-    bugsTotal: 20,
+    target: 8,
     bugsGreen:0,
     bugsBlue:0,
     bugsEatenTotal: 0,
@@ -80,11 +76,11 @@ function clearBugs() {
 }
 
 function populateField() {
-  for (i=0;i<16;i++) {
+  for (i=0;i<currentRound.bugsBlue;i++) {
     makeBug(i,'blue')
   }
 
-  for (i=17;i<=20;i++) {
+  for (i=0;i<currentRound.bugsGreen;i++) {
     makeBug(i,'green')
   };
   addClickEventBugs();
@@ -93,7 +89,20 @@ function populateField() {
 function makeBug(n,colour) {
   var bug = $('<div id="bug'+n+'">');
   bug.addClass('bug');
-  var imageChoice=Math.ceil(Math.random()*4);
+  bug.addClass(colour+'Bug');
+  var imageChoice = Math.ceil(Math.random()*4);
+
+  // if imageChoice ===1, then add Class 'up'
+  // if imageChoice ===2, then add Class 'down'
+  // function to moveBugs
+  //    if $(this).hasClass('up') then moveBugUp()
+  //    if $(this).hasClass('down') then moveBugDown()
+  // 
+  // setInterval({
+  //   if class = 'upleft'
+  //       change the pic to upright, give upright class, move position upright
+  // })
+
   // bug.addClass(colour+'Bug'+imageChoice);
   bug.html('<img src="../images/'+colour+'-bug'+imageChoice+'.png">')
   bug.css('top',randomHeight())
@@ -110,7 +119,18 @@ function addClickEventBugs() {
 }
 
 function eatBug(x){
-  $(x).addClass('eatenBug');
+  var bug = $(x)
+  bug.addClass('eatenBug');
+  if (bug.hasClass('greenBug')) {
+    console.log('green bug');
+    currentRound.bugsEatenGreen++;
+    console.log(currentRound.bugsEatenGreen)
+  }
+  else if (bug.hasClass('blueBug')) {
+    console.log('blue bug');
+    currentRound.bugsEatenBlue++;
+    console.log(currentRound.bugsEatenBlue);
+  }
 }
 
 function addScore(){
@@ -118,7 +138,7 @@ function addScore(){
   updateScoreDisplay();
 }
 
-function resetScore(round) {
+function resetScore() {
   currentRound.bugsEatenTotal=0;
   updateScoreDisplay();
 }
@@ -151,15 +171,25 @@ function restartRound() {
 }
 
 function startNextRound() {
-$('.results').hide();
+  calculateGreenBlueRatio();
+  debugger;
+  $('.results').hide();
   $('.gameScreen').show();
   $('.field').show();
-  resetScore();
+  currentRound=rounds['round'+(currentRound.number+1)];
   $('.infoBox').show();
   updateInfoBox();
   clearBugs();
   populateField();
   startTimer();
+}
+
+function calculateGreenBlueRatio() {
+  nextRound=rounds['round'+(currentRound.number+1)]
+  nextRound.bugsGreen = Math.round((currentRound.bugsGreen - currentRound.bugsEatenGreen)*1.9);
+  nextRound.bugsBlue = Math.round((currentRound.bugsBlue - currentRound.bugsEatenBlue)*1.3);
+
+
 }
 
 function updateInfoBox() {
@@ -201,10 +231,12 @@ function displayResults() {
   results.prependTo('.gameScreen');
 
   var nextRound = rounds['round'+(currentRound.number+1)];
-
+  console.log(currentRound.bugsEatenTotal);
+  console.log(currentRound.target); 
+  console.log(currentRound.number);
   if (currentRound.bugsEatenTotal>=currentRound.target) {
     if (currentRound.number===4) {
-       results.prepend('<p>Well done! You survived your fourth winter and you will be able to mate and pas on you genes</p>');
+       results.prepend('<p>Well done! You survived your fourth winter and you will be able to mate and pass on your genes</p>');
       } else {
       var nextRoundButton = $('<button class="nextYear">Next year</button>');
       results.prepend(nextRoundButton);
@@ -220,7 +252,6 @@ function displayResults() {
   }
 
   results.prepend('<p>You ate '+  currentRound.bugsEatenTotal+' bugs</p>');
-  currentRound=nextRound;
 
 }
 
