@@ -20,7 +20,7 @@ var rounds = {
     },
   round2: {
     number:2,
-    target: 7,
+    target: 6,
     bugsGreen:0,
     bugsBlue:0,
     bugsEatenTotal: 0,
@@ -153,7 +153,7 @@ function startGame() {
   currentRound = rounds.round1;
   populateField();
   $('.gameScreen').show();
-  $('.field').show();
+  // $('.field').show();
   $('.infoBox').show();
   updateInfoBox();
   startTimer();
@@ -162,9 +162,9 @@ function startGame() {
 function restartRound() {
   $('.results').hide();
   $('.gameScreen').show();
-  $('.field').show();
+  // $('.field').show();
   resetScore();
-  $('.infoBox').show();
+  // $('.infoBox').show();
   clearBugs();
   populateField();
   startTimer();
@@ -175,9 +175,9 @@ function startNextRound() {
   debugger;
   $('.results').hide();
   $('.gameScreen').show();
-  $('.field').show();
+  // $('.field').show();
   currentRound=rounds['round'+(currentRound.number+1)];
-  $('.infoBox').show();
+  // $('.infoBox').show();
   updateInfoBox();
   clearBugs();
   populateField();
@@ -195,7 +195,7 @@ function calculateGreenBlueRatio() {
 function updateInfoBox() {
   //put information (round name, target, bugs eaten so far) in info box
 var infoBox = $('.infoBox');
-infoBox.html('<h2>Round '+currentRound.number+'</h2>');
+infoBox.html('<h2>Year '+currentRound.number+'</h2>');
 infoBox.append('<p>Target: '+currentRound.target+'</p>');
 
 infoBox.append('<p class="bugCount">Bugs eaten: '+currentRound.bugsEatenTotal+'</p>');
@@ -225,10 +225,10 @@ function startTimer(){
 }
 
 function displayResults() {
-  $('.field').hide();
+  $('.gameScreen').hide();
 
   var results = $('<div class="results"></div>');
-  results.prependTo('.gameScreen');
+  results.insertBefore('.infoBox');
 
   var nextRound = rounds['round'+(currentRound.number+1)];
   console.log(currentRound.bugsEatenTotal);
