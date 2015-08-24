@@ -2,30 +2,63 @@ $(document).on('ready',function() {
 
 console.log('js linked');
 
-var round1 = {
-  target: 7,
-  bugsTotal: 20,
-  bugsGreen: 4,
-  bugsBlue: 16,
-  bugsEatenTotal: 0,
-  bugsEatenGreen: 0,
-  bugsEatenBlue: 0,
-  displayTarget: function() {
-  $('.introBox').prepend('<p>Eat '+round1.target+' bugs to survive the winter.')
-    }
+// var round = round1;
+var currentRound;
+
+var rounds = {
+  round1: {
+    number:1,
+    target: 3,
+    bugsTotal: 20,
+    bugsGreen: 4,
+    bugsBlue: 16,
+    bugsEatenTotal: 0,
+    bugsEatenGreen: 0,
+    bugsEatenBlue: 0,
+    displayTargetOnIntro: function() {
+      $('.introBox').prepend('<p>Eat '+this.target+' bugs to survive the winter.')
+      }
+    },
+  round2: {
+    number:2,
+    target: 4,
+    bugsTotal: 20,
+    bugsGreen:0,
+    bugsBlue:0,
+    bugsEatenTotal: 0,
+    bugsEatenGreen: 0,
+    bugsEatenBlue: 0
+
+  },
+
+  round3: {
+    number:3,
+    target:5,
+    bugsTotal: 20,
+    bugsGreen:0,
+    bugsBlue:0,
+    bugsEatenTotal: 0,
+    bugsEatenGreen: 0,
+    bugsEatenBlue: 0
+
+  },
+
+  round4: {
+    number: 4,
+    target: 6,
+    bugsTotal: 20,
+    bugsGreen:0,
+    bugsBlue:0,
+    bugsEatenTotal: 0,
+    bugsEatenGreen: 0,
+    bugsEatenBlue: 0
+
+  }
 }
 
-var round2 = {
-  target: 9,
-  bugsTotal: 20,
-  bugsGreen:0,
-  bugsBlue:0,
-  bugsEatenTotal: 0,
-  bugsEatenGreen: 0,
-  bugsEatenBlue: 0
-}
 
 //generate random absolute position based on width and height of bug-field
+
 function randomHeight() {
   var fieldHeight = $('.field').height();
   var randomHeight =Math.round(Math.random()*(fieldHeight-80));
@@ -81,21 +114,32 @@ function eatBug(x){
 }
 
 function addScore(){
-  round1.bugsEatenTotal++;
+  currentRound.bugsEatenTotal++;
   updateScoreDisplay();
 }
 
-function resetScore() {
-  round1.bugsEatenTotal=0;
+function resetScore(round) {
+  currentRound.bugsEatenTotal=0;
   updateScoreDisplay();
 }
 
 
 function updateScoreDisplay(){
-  $('.infoBox').html('<p> Bugs eaten: '+round1.bugsEatenTotal+'</p>')
+  $('.infoBox.bugCount').html('<p> Bugs eaten: '+currentRound.bugsEatenTotal+'</p>')
 }
 
-function startNextRound() {
+function startGame() {
+  $('.introBox').hide();
+  currentRound = rounds.round1;
+  populateField();
+  $('.gameScreen').show();
+  $('.field').show();
+  $('.infoBox').show();
+  updateInfoBox();
+  startTimer();
+}
+
+function restartRound() {
   $('.results').hide();
   $('.gameScreen').show();
   $('.field').show();
@@ -103,23 +147,28 @@ function startNextRound() {
   $('.infoBox').show();
   clearBugs();
   populateField();
-  startTimer()
+  startTimer();
 }
 
-function startGame() {
-  $('.introBox').hide();
-  populateField();
+function startNextRound() {
+$('.results').hide();
   $('.gameScreen').show();
   $('.field').show();
+  resetScore();
   $('.infoBox').show();
+  updateInfoBox();
+  clearBugs();
+  populateField();
   startTimer();
-  //clearScore
-
-  //populate bugs
-
 }
 
-round1.displayTarget();
+function updateInfoBox() {
+  //put information (round name, target, bugs eaten so far) in info box
+var infoBox = $('.infoBox');
+infoBox.append('<p class="bugCount">Round '+currentRound.number+'</p>');
+}
+
+//NB:at present the two functions startNextRound() and restartRound() are the same
 
 //add event listener to start game
 $('#start').on('click',startGame);
@@ -132,9 +181,11 @@ function startTimer(){
     var bar = $('.timerBar');
     percentage-=0.2;
     bar.width(percentage+'%');
-    if(count > 500) {clearInterval(timer);
-       displayResults();
-     }
+    if(count > 500) {
+      clearInterval(timer);
+      console.log('hi')
+      displayResults();
+    }
     count++;
   }, 10);
 }
@@ -145,24 +196,26 @@ function displayResults() {
   var results = $('<div class="results"></div>');
   results.prependTo('.gameScreen');
 
-  if (round1.bugsEatenTotal>=round1.target){
+  if (currentRound.bugsEatenTotal>=currentRound.target){
     var nextRoundButton = $('<button class="nextYear">Next year</button>');
     results.prepend(nextRoundButton);
-    results.prepend('<p>You survived the winter. This year you will need to eat '+round2.target+' bugs to survive</p>');
-  } else if (round1.bugsEatenTotal<round1.target) {
+    nextRoundButton.on('click',startNextRound);
+
+    var nextRound = rounds['round'+(currentRound.number+1)];
+    results.prepend('<p>You survived the winter. This year you will need to eat '+nextRound.target+' bugs to survive</p>');
+  } else if (currentRound.bugsEatenTotal<currentRound.target) {
     var tryAgainButton = $('<button class="tryAgain">Try Again</button>');
     results.prepend(tryAgainButton);
-    tryAgainButton.on('click',startNextRound);
+    tryAgainButton.on('click',restartRound);
     results.prepend('<p>You didn\'t eat enough bugs to survive the winter.</p>');
   }
 
-  results.prepend('<p>You ate '+round1.bugsEatenTotal+' bugs</p>');
+  results.prepend('<p>You ate '+  currentRound.bugsEatenTotal+' bugs</p>');
+  currentRound=nextRound;
 
 }
 
-// function round1.displayTarget() {
-//   $('.introBox').prepend('<p>Eat '+round1.target+' bugs to survive the winter.')
-// }
+rounds.round1.displayTargetOnIntro();
 
 });
 
