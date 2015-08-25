@@ -203,9 +203,6 @@ infoBox.prepend('<p class="bugCount">Bugs eaten: '+currentRound.bugsEatenTotal+'
 infoBox.prepend('<p>Target: '+currentRound.target+'</p>');
 infoBox.prepend('<h2>Year '+currentRound.number+'</h2>');
 
-
-
-
 }
 
 //NB:at present the two functions startNextRound() and restartRound() are the same
