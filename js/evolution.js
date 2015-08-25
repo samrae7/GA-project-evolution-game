@@ -136,7 +136,7 @@ function eatBug(x){
     currentRound.bugsEatenBlue++;
     console.log('Blue bugs eaten: '+currentRound.bugsEatenBlue);
   }
-  $('.tallyChart').append('x');
+  $('.tallyChart').append('<img src="./images/bug-icon.svg">');
 }
 
 function addScore(){

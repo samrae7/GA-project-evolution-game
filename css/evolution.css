@@ -145,6 +145,12 @@ img.bugIconStart {
   height:10%;
   width:85%;
   margin-left:7%;
+  margin-top:7px;
+}
+
+.tallyChart img {
+  height:30px;
+  margin:2px;
 }
 
 .infoBox .graph{
