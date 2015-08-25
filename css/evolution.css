@@ -15,7 +15,7 @@ h1 {
 }
 
 h2 {
-  margin-left: 20px;
+  margin: 5% 0 0 7%;
 }
 
 .pageWrapper {
@@ -91,7 +91,7 @@ img.bugIconStart {
 }
 
 .infoBox p {
-  margin-left: 20px;
+  margin: 0 0 0 7%;
 }
 
 .field {
@@ -139,6 +139,12 @@ img.bugIconStart {
 
 .eatenBug {
   display:none;
+}
+
+.tallyChart {
+  height:10%;
+  width:85%;
+  margin-left:7%;
 }
 
 .infoBox .graph{

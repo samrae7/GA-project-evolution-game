@@ -136,6 +136,7 @@ function eatBug(x){
     currentRound.bugsEatenBlue++;
     console.log('Blue bugs eaten: '+currentRound.bugsEatenBlue);
   }
+  $('.tallyChart').append('x');
 }
 
 function addScore(){
@@ -172,6 +173,7 @@ function restartRound() {
   resetScore();
   // $('.infoBox').show();
   clearBugs();
+  clearTally();
   populateField();
   startTimer();
 }
@@ -187,6 +189,7 @@ function startNextRound() {
   $('.graph').css('visibility','visible');
   populateGraph();
   clearBugs();
+  clearTally();
   populateField();
   startTimer();
 }
@@ -203,14 +206,9 @@ var stats = $('.stats');
 stats.html('<h2>Year '+currentRound.number+'</h2>');
 stats.append('<p>Target: '+currentRound.target+'</p>');
 stats.append('<p class="bugCount">Bugs eaten: '+currentRound.bugsEatenTotal+'</p>');
-
-
 }
 
 //NB:at present the two functions startNextRound() and restartRound() are the same
-
-//add event listener to start game
-$('#start').on('click',startGame);
 
 function startTimer(){
   // var id=window.setInterval(callback, delay);
@@ -265,12 +263,16 @@ function displayResults() {
     tryAgainButton.on('click',restartRound);
     results.prepend('<p>You didn\'t eat enough bugs to survive the winter.</p>');
   }
-
   // results.prepend('<p>You ate '+  currentRound.bugsEatenTotal+' bugs</p>');
+}
 
+function clearTally(){
+  $('.tallyChart').html('')
 }
 
 rounds.round1.displayTargetOnIntro();
+//add event listener to start game
+$('#start').on('click',startGame);
 
 });
 
