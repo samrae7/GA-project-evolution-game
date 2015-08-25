@@ -160,6 +160,7 @@ function startGame() {
   // $('.field').show();
   $('.infoBox').show();
   updateInfoBox();
+  populateGraph();
   startTimer();
 }
 
@@ -176,13 +177,13 @@ function restartRound() {
 
 function startNextRound() {
   calculateGreenBlueRatio();
-  debugger;
   $('.results').hide();
   $('.gameScreen').show();
   // $('.field').show();
   currentRound=rounds['round'+(currentRound.number+1)];
   // $('.infoBox').show();
   updateInfoBox();
+  populateGraph();
   clearBugs();
   populateField();
   startTimer();
@@ -225,6 +226,14 @@ function startTimer(){
     }
     count++;
   }, 10);
+}
+
+function populateGraph() {
+  var greenBugs = currentRound.bugsGreen;
+  var roundNumber = currentRound.number;
+  var perCentGreenBugs = (greenBugs/20)*100
+
+  $('#pop'+roundNumber).css('height',perCentGreenBugs);
 }
 
 function displayResults() {
