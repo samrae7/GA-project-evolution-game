@@ -6,6 +6,7 @@ console.log('js linked');
 var currentRound;
 
 var rounds = {
+
   round1: {
     number:1, 
     target: 5,
@@ -15,9 +16,11 @@ var rounds = {
     bugsEatenGreen: 0,
     bugsEatenBlue: 0,
     displayTargetOnIntro: function() {
-      $('.introBox').prepend('<p>Eat '+this.target+' bugs to survive the winter.')
-      }
+      $('.bugIconStart').before('<p>Eat '+this.target+' or more bugs to survive the winter.')
     },
+    successMessage:"<p>You got through your first year but you were attacked by a hawk and your injuries mean you won't be able to breed this season.</p><p>You'll need to eat more this year so that you can recover.</p>"
+  },
+
   round2: {
     number:2,
     target: 6,
@@ -25,8 +28,8 @@ var rounds = {
     bugsBlue:0,
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
-    bugsEatenBlue: 0
-
+    bugsEatenBlue: 0,
+    successMessage: "<p>You survived another winter but now you've caught a disease.</p><p>You are recovering but you do not have enough energy to try and breed this season.</p><p>You have to eat more in order to get your strength back.</p>"
   },
 
   round3: {
@@ -36,7 +39,8 @@ var rounds = {
     bugsBlue:0,
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
-    bugsEatenBlue: 0
+    bugsEatenBlue: 0,
+    successMessage:"<p>This year you found a mate and bred. Your hatchlings are growing quickly and should be out of the nest soon.</p><p>You've done well so far but all these extra beaks to feed mean that you'll have to catch more bugs than ever.</p>"
 
   },
 
@@ -47,8 +51,8 @@ var rounds = {
     bugsBlue:0,
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
-    bugsEatenBlue: 0
-
+    bugsEatenBlue: 0,
+    successMessage: "<p>Well done! You've made it through your fourth year and your offspring have flown the nest.</p><p>Did you find it easier to spot the blue bugs? If so you probably saw the proportion of green bugs increasing.</p>This is a simplification of how small-scale changes in a population can take place through natural selection, an important concept in the theory of evolution.</p><p><a href='#'>Find out more about the theory of evolution.</a></p><p><a href='#'>Play again</a></p>"
   }
 }
 
@@ -195,10 +199,12 @@ function calculateGreenBlueRatio() {
 function updateInfoBox() {
   //put information (round name, target, bugs eaten so far) in info box
 var infoBox = $('.infoBox');
-infoBox.html('<h2>Year '+currentRound.number+'</h2>');
-infoBox.append('<p>Target: '+currentRound.target+'</p>');
+infoBox.prepend('<p class="bugCount">Bugs eaten: '+currentRound.bugsEatenTotal+'</p>');
+infoBox.prepend('<p>Target: '+currentRound.target+'</p>');
+infoBox.prepend('<h2>Year '+currentRound.number+'</h2>');
 
-infoBox.append('<p class="bugCount">Bugs eaten: '+currentRound.bugsEatenTotal+'</p>');
+
+
 
 }
 
@@ -236,13 +242,16 @@ function displayResults() {
   console.log(currentRound.number);
   if (currentRound.bugsEatenTotal>=currentRound.target) {
     if (currentRound.number===4) {
-       results.prepend('<p>Well done! You survived your fourth winter and you will be able to mate and pass on your genes</p>');
+       results.prepend(currentRound.successMessage);
       } else {
       var nextRoundButton = $('<button class="nextYear">Next year</button>');
       results.prepend(nextRoundButton);
       nextRoundButton.on('click',startNextRound);
 
-      results.prepend('<p>You survived the winter. This year you will need to eat '+nextRound.target+' bugs to survive</p>');
+      results.prepend('<p>Eat '+nextRound.target+' or more bugs to survive.</p>') 
+
+      results.prepend(currentRound.successMessage);
+      
       }
   } else if (currentRound.bugsEatenTotal<currentRound.target) {
     var tryAgainButton = $('<button class="tryAgain">Try Again</button>');

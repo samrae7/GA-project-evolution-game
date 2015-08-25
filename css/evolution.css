@@ -21,18 +21,19 @@ h2 {
 
 .introBox{
   width: 650px;
-  height:559px;
+  height:429px;
   background-color: #E6FFE6;
   text-align: center;
   margin:0 auto;
   border-radius:25px;
   border:1px solid black;
-  
+  padding:30px;
+  padding-top: 100px;
   }
 
 .introBox p {
-  margin-top: 200px;
   display: inline-block;
+  margin: 3px;
 }
 
 button#start {
@@ -133,4 +134,22 @@ img.bugIconStart {
 
 .eatenBug {
   display:none;
+}
+
+.infoBox .graph{
+  width:90%;
+  background-color: green;
+  height:40%;
+}
+
+.graph .chart{
+  height:80%;
+  width:90%;
+  background-color: red;
+}
+
+.chart .bar {
+  height:10px;
+  width:25%;
+  background-color: blue;
 }
