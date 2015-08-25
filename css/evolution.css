@@ -84,12 +84,14 @@ img.bugIconStart {
 }
 
 .results {
-  width: 612px;
-  height:481px;
+  width: 500px;
+  height:368px;
   border:1px solid black;
   border-radius: 25px;
   float:left;
-  padding:18px;
+  padding:74px 74px;
+  text-align: center;
+  background-image:url('../images/grass4.jpg')
 }
 
 .results p {

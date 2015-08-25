@@ -10,15 +10,15 @@ var rounds = {
   round1: {
     number:1, 
     target: 3,
-    bugsGreen: 4,
-    bugsBlue: 16,
+    bugsGreen: 1,
+    bugsBlue: 15,
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
     bugsEatenBlue: 0,
     displayTargetOnIntro: function() {
       $('.bugIconStart').before('<p>Eat '+this.target+' or more bugs to survive the winter.')
     },
-    successMessage:"<p>You got through your first year but you were attacked by a hawk.</p><p>Your injuries mean you won't be able to breed this season.</p><p>You'll need to eat more this year so that you can recover.</p>"
+    successMessage:"<p>You got through your first year but you were attacked by a hawk. Your injuries mean you won't be able to breed.</p><p>You'll need to eat more this year so that you can recover.</p>"
   },
 
   round2: {
@@ -29,7 +29,7 @@ var rounds = {
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
     bugsEatenBlue: 0,
-    successMessage: "<p>You survived another winter but now you've caught a disease.</p><p>You are recovering but you do not have enough energy to breed this season.</p><p>You have to eat more in order to get your strength back.</p>"
+    successMessage: "<p>You survived another winter but now you've caught a disease so you don't have enough energy to breed.</p><p>You have to eat more in order to get your strength back. Have you spotted the green bugs?</p>"
   },
 
   round3: {
@@ -40,7 +40,7 @@ var rounds = {
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
     bugsEatenBlue: 0,
-    successMessage:"<p>This year you found a mate and bred. Your hatchlings are growing quickly and should be out of the nest soon.</p><p>You've done well so far but all these extra beaks to feed mean that you'll have to catch more bugs than ever.</p>"
+    successMessage:"<p>This year you found a mate and bred. Your hatchlings are growing quickly and should be out of the nest soon.</p><p>You've done well so far but with all these extra beaks to feed you'll have to catch more bugs than ever.</p>"
 
   },
 
@@ -52,7 +52,7 @@ var rounds = {
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
     bugsEatenBlue: 0,
-    successMessage: "<p>Well done! You've made it through your fourth year and your offspring have flown the nest.</p><p>Did you find it easier to spot the blue bugs? If so the proportion of green bugs probably increased throughout the game.</p><p>This is a simplified example of how changes can happen as a result of natural selection.</p><p><a href='#'>Find out more about the theory of evolution.</a></p><p><a href='#'>Play again</a></p>"
+    successMessage: "<p>Well done! You've made it through your fourth year and your offspring have flown the nest.</p><p>Did you find it easier to spot the blue bugs? If so the proportion of green bugs probably increased throughout the game.</p><p>This is a simplified example of how changes can happen as a result of natural selection.</p><p><a href='#'>Find out more about evolution</a></p><p><a href='./index.html'>Play again</a></p>"
   }
 }
 
@@ -196,8 +196,8 @@ function startNextRound() {
 
 function calculateGreenBlueRatio() {
   nextRound=rounds['round'+(currentRound.number+1)]
-  nextRound.bugsGreen = Math.round((currentRound.bugsGreen - currentRound.bugsEatenGreen)*1.9);
-  nextRound.bugsBlue = Math.round((currentRound.bugsBlue - currentRound.bugsEatenBlue)*1.3);
+  nextRound.bugsGreen = 2 + Math.round((currentRound.bugsGreen - currentRound.bugsEatenGreen)*1.9);
+  nextRound.bugsBlue = 15 - nextRound.bugsGreen
 }
 
 function updateInfoBox() {
@@ -229,7 +229,7 @@ function startTimer(){
 function populateGraph() {
   var greenBugs = currentRound.bugsGreen;
   var roundNumber = currentRound.number;
-  var perCentGreenBugs = (greenBugs/20)*100
+  var perCentGreenBugs = (greenBugs/15)*100
 
   $('#pop'+roundNumber).css('height',perCentGreenBugs);
 }
@@ -258,20 +258,12 @@ function displayResults() {
         
       }
   } else if (currentRound.bugsEatenTotal<currentRound.target) {
-
-
-
-
-    $('.results').html('<div class="failedText"></div>')
-    var failedText = $('.failedText');
     var tryAgainButton = $('<button class="tryAgain">Try Again</button>');
-    failedText.append(tryAgainButton);
+    results.append(tryAgainButton);
     tryAgainButton.on('click',restartRound);
 
-// var elvisLives = Math.PI > 4 ? "Yep" : "Nope";
-
     var bugsEaten = currentRound.bugsEatenTotal === 1 ?  '1 bug' : currentRound.bugsEatenTotal+' bugs';
-    failedText.prepend('<p>You ate '+bugsEaten+'.</p><p>This was not enough to survive and you have died.</p>');
+    results.prepend('<p>You ate '+bugsEaten+'.</p><p>This was not enough to survive and you have died.</p>');
   }
   // results.prepend('<p>You ate '+  currentRound.bugsEatenTotal+' bugs</p>');
 
