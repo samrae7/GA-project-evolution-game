@@ -9,7 +9,7 @@ var rounds = {
 
   round1: {
     number:1, 
-    target: 5,
+    target: 3,
     bugsGreen: 4,
     bugsBlue: 16,
     bugsEatenTotal: 0,
@@ -23,7 +23,7 @@ var rounds = {
 
   round2: {
     number:2,
-    target: 6,
+    target: 3,
     bugsGreen:0,
     bugsBlue:0,
     bugsEatenTotal: 0,
@@ -34,7 +34,7 @@ var rounds = {
 
   round3: {
     number:3,
-    target:7,
+    target:3,
     bugsGreen:0,
     bugsBlue:0,
     bugsEatenTotal: 0,
@@ -46,13 +46,13 @@ var rounds = {
 
   round4: {
     number: 4,
-    target: 8,
+    target: 3,
     bugsGreen:0,
     bugsBlue:0,
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
     bugsEatenBlue: 0,
-    successMessage: "<p>Well done! You've made it through your fourth year and your offspring have flown the nest.</p><p>Did you find it easier to spot the blue bugs? If so you probably saw the proportion of green bugs increasing.</p>This is a simplification of how small-scale changes in a population can take place through natural selection, an important concept in the theory of evolution.</p><p><a href='#'>Find out more about the theory of evolution.</a></p><p><a href='#'>Play again</a></p>"
+    successMessage: "<p>Well done! You've made it through your fourth year and your offspring have flown the nest.</p><p>Did you find it easier to spot the blue bugs? If so the proportion of green bugs probably increased throughout the game.</p><p>This is a simplified example of how changes can happen as a result of natural selection.</p><p><a href='#'>Find out more about the theory of evolution.</a></p><p><a href='#'>Play again</a></p>"
   }
 }
 
@@ -83,10 +83,11 @@ function populateField() {
   for (i=0;i<currentRound.bugsBlue;i++) {
     makeBug(i,'blue')
   }
-
+  console.log('Blue bugs in this round: '+currentRound.bugsBlue)
   for (i=0;i<currentRound.bugsGreen;i++) {
     makeBug(i,'green')
   };
+  console.log('Green bugs in this round: '+currentRound.bugsGreen)
   addClickEventBugs();
 }
 
@@ -126,14 +127,14 @@ function eatBug(x){
   var bug = $(x)
   bug.addClass('eatenBug');
   if (bug.hasClass('greenBug')) {
-    console.log('green bug');
+    console.log('ate green bug');
     currentRound.bugsEatenGreen++;
-    console.log(currentRound.bugsEatenGreen)
+    console.log('Green bugs eaten:'+currentRound.bugsEatenGreen)
   }
   else if (bug.hasClass('blueBug')) {
-    console.log('blue bug');
+    console.log('ate blue bug');
     currentRound.bugsEatenBlue++;
-    console.log(currentRound.bugsEatenBlue);
+    console.log('Blue bugs eaten: '+currentRound.bugsEatenBlue);
   }
 }
 
@@ -183,6 +184,7 @@ function startNextRound() {
   currentRound=rounds['round'+(currentRound.number+1)];
   // $('.infoBox').show();
   updateInfoBox();
+  $('.graph').css('visibility','visible');
   populateGraph();
   clearBugs();
   populateField();
@@ -193,8 +195,6 @@ function calculateGreenBlueRatio() {
   nextRound=rounds['round'+(currentRound.number+1)]
   nextRound.bugsGreen = Math.round((currentRound.bugsGreen - currentRound.bugsEatenGreen)*1.9);
   nextRound.bugsBlue = Math.round((currentRound.bugsBlue - currentRound.bugsEatenBlue)*1.3);
-
-
 }
 
 function updateInfoBox() {
@@ -222,7 +222,6 @@ function startTimer(){
     bar.width(percentage+'%');
     if(count > 500) {
       clearInterval(timer);
-      console.log('hi')
       displayResults();
     }
     count++;
@@ -244,9 +243,9 @@ function displayResults() {
   results.insertBefore('.infoBox');
 
   var nextRound = rounds['round'+(currentRound.number+1)];
-  console.log(currentRound.bugsEatenTotal);
-  console.log(currentRound.target); 
-  console.log(currentRound.number);
+  console.log('Total bugs eaten this round '+currentRound.bugsEatenTotal);
+  console.log('Target for this round:'+currentRound.target); 
+  console.log('This is round number :'+currentRound.number);
   if (currentRound.bugsEatenTotal>=currentRound.target) {
     if (currentRound.number===4) {
        results.prepend(currentRound.successMessage);
@@ -267,7 +266,7 @@ function displayResults() {
     results.prepend('<p>You didn\'t eat enough bugs to survive the winter.</p>');
   }
 
-  results.prepend('<p>You ate '+  currentRound.bugsEatenTotal+' bugs</p>');
+  // results.prepend('<p>You ate '+  currentRound.bugsEatenTotal+' bugs</p>');
 
 }
 
