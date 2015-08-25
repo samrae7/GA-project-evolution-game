@@ -258,18 +258,23 @@ function displayResults() {
         
       }
   } else if (currentRound.bugsEatenTotal<currentRound.target) {
+
+
+
+
     $('.results').html('<div class="failedText"></div>')
     var failedText = $('.failedText');
     var tryAgainButton = $('<button class="tryAgain">Try Again</button>');
     failedText.append(tryAgainButton);
     tryAgainButton.on('click',restartRound);
 
+// var elvisLives = Math.PI > 4 ? "Yep" : "Nope";
 
-
-    
-    failedText.prepend('<p>You ate '+currentRound.bugsEatenTotal+' bugs.</p><p>This was not enough to survive and you have died.</p>');
+    var bugsEaten = currentRound.bugsEatenTotal === 1 ?  '1 bug' : currentRound.bugsEatenTotal+' bugs';
+    failedText.prepend('<p>You ate '+bugsEaten+'.</p><p>This was not enough to survive and you have died.</p>');
   }
   // results.prepend('<p>You ate '+  currentRound.bugsEatenTotal+' bugs</p>');
+
 }
 
 function clearTally(){
