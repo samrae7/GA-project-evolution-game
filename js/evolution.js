@@ -199,10 +199,11 @@ function calculateGreenBlueRatio() {
 
 function updateInfoBox() {
   //put information (round name, target, bugs eaten so far) in info box
-var infoBox = $('.infoBox');
-infoBox.prepend('<p class="bugCount">Bugs eaten: '+currentRound.bugsEatenTotal+'</p>');
-infoBox.prepend('<p>Target: '+currentRound.target+'</p>');
-infoBox.prepend('<h2>Year '+currentRound.number+'</h2>');
+var stats = $('.stats');
+stats.html('<h2>Year '+currentRound.number+'</h2>');
+stats.append('<p>Target: '+currentRound.target+'</p>');
+stats.append('<p class="bugCount">Bugs eaten: '+currentRound.bugsEatenTotal+'</p>');
+
 
 }
 
