@@ -46,7 +46,12 @@ button#start {
 }
 
 button.nextYear, .tryAgain {
-  margin-left: 18px;
+  margin: 3px 0 0 28px;
+}
+
+.failedText {
+  text-align: center;
+  margin-top:100px;
 }
 
 button {
@@ -88,6 +93,8 @@ img.bugIconStart {
 
 .results p {
   padding-left:18px;
+  font-family: 'Open Sans', sans-serif;
+  font-size:1.3em;
 }
 
 .infoBox p {

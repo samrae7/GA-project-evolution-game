@@ -18,7 +18,7 @@ var rounds = {
     displayTargetOnIntro: function() {
       $('.bugIconStart').before('<p>Eat '+this.target+' or more bugs to survive the winter.')
     },
-    successMessage:"<p>You got through your first year but you were attacked by a hawk and your injuries mean you won't be able to breed this season.</p><p>You'll need to eat more this year so that you can recover.</p>"
+    successMessage:"<p>You got through your first year but you were attacked by a hawk.</p><p>Your injuries mean you won't be able to breed this season.</p><p>You'll need to eat more this year so that you can recover.</p>"
   },
 
   round2: {
@@ -29,7 +29,7 @@ var rounds = {
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
     bugsEatenBlue: 0,
-    successMessage: "<p>You survived another winter but now you've caught a disease.</p><p>You are recovering but you do not have enough energy to try and breed this season.</p><p>You have to eat more in order to get your strength back.</p>"
+    successMessage: "<p>You survived another winter but now you've caught a disease.</p><p>You are recovering but you do not have enough energy to breed this season.</p><p>You have to eat more in order to get your strength back.</p>"
   },
 
   round3: {
@@ -255,13 +255,19 @@ function displayResults() {
       results.prepend('<p>Eat '+nextRound.target+' or more bugs to survive.</p>') 
 
       results.prepend(currentRound.successMessage);
-      
+        
       }
   } else if (currentRound.bugsEatenTotal<currentRound.target) {
+    $('.results').html('<div class="failedText"></div>')
+    var failedText = $('.failedText');
     var tryAgainButton = $('<button class="tryAgain">Try Again</button>');
-    results.prepend(tryAgainButton);
+    failedText.append(tryAgainButton);
     tryAgainButton.on('click',restartRound);
-    results.prepend('<p>You didn\'t eat enough bugs to survive the winter.</p>');
+
+
+
+    
+    failedText.prepend('<p>You ate '+currentRound.bugsEatenTotal+' bugs.</p><p>This was not enough to survive and you have died.</p>');
   }
   // results.prepend('<p>You ate '+  currentRound.bugsEatenTotal+' bugs</p>');
 }
