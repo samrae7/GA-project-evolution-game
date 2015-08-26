@@ -52,7 +52,7 @@ var rounds = {
     bugsEatenTotal: 0,
     bugsEatenGreen: 0,
     bugsEatenBlue: 0,
-    successMessage: "<p>Well done! You've made it through your fourth year and your offspring have flown the nest.</p><p>Did you find it easier to spot the blue bugs? If so the proportion of green bugs probably increased throughout the game.</p><p>This is a simplified example of how changes can happen as a result of natural selection.</p><p><a href='#'>Find out more about evolution</a></p><p><a href='./index.html'>Play again</a></p>"
+    successMessage: "<p>Well done! You've made it through your fourth year and your offspring have flown the nest.</p><p>Did you find it hard to spot the green bugs? If so the proportion of green bugs probably increased throughout the game.</p><p>This is a simplified example of how changes can happen as a result of natural selection.</p><p><a href='http://evolution.berkeley.edu/evolibrary/article/0_0_0/evo_25'>Find out more about evolution</a></p><p><button>Play again</button>"
   }
 }
 
@@ -159,7 +159,6 @@ function startGame() {
   currentRound = rounds.round1;
   populateField();
   $('.gameScreen').show();
-  // $('.field').show();
   $('.infoBox').show();
   updateInfoBox();
   populateGraph();
@@ -169,9 +168,7 @@ function startGame() {
 function restartRound() {
   $('.results').hide();
   $('.gameScreen').show();
-  // $('.field').show();
   resetScore();
-  // $('.infoBox').show();
   clearBugs();
   clearTally();
   populateField();
@@ -182,9 +179,7 @@ function startNextRound() {
   calculateGreenBlueRatio();
   $('.results').hide();
   $('.gameScreen').show();
-  // $('.field').show();
   currentRound=rounds['round'+(currentRound.number+1)];
-  // $('.infoBox').show();
   updateInfoBox();
   $('.graph').css('visibility','visible');
   populateGraph();
@@ -196,8 +191,8 @@ function startNextRound() {
 
 function calculateGreenBlueRatio() {
   nextRound=rounds['round'+(currentRound.number+1)]
-  nextRound.bugsGreen = 2 + Math.round((currentRound.bugsGreen - currentRound.bugsEatenGreen)*1.9);
-  nextRound.bugsBlue = 15 - nextRound.bugsGreen
+  nextRound.bugsGreen = 1 + Math.round((currentRound.bugsGreen - currentRound.bugsEatenGreen)*1.6);
+  nextRound.bugsBlue = 16 - nextRound.bugsGreen
 }
 
 function updateInfoBox() {
@@ -247,6 +242,7 @@ function displayResults() {
   if (currentRound.bugsEatenTotal>=currentRound.target) {
     if (currentRound.number===4) {
        results.prepend(currentRound.successMessage);
+       results.css('padding-top','44px').css('height','398px');
       } else {
       var nextRoundButton = $('<button class="nextYear">Next year</button>');
       results.prepend(nextRoundButton);

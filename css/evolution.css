@@ -41,15 +41,6 @@ h2 {
   margin: 3px;
 }
 
-button#start {
-  margin-top:14px;
-}
-
-button.nextYear, .tryAgain {
-  margin: 7px 0 0 28px;
-  padding: 6px 15px;
-}
-
 .failedText {
   text-align: center;
   margin-top:100px;
@@ -63,9 +54,18 @@ button {
     border: 1px solid black;
     background-color: #FFEBD6;
     font-size: 1em;
+    margin: 7px 0 0 1px;
+    padding: 6px 15px;
 }
 
-
+button#start {
+  margin-top:14px;
+}
+/*button.nextYear, .tryAgain {
+  margin-left: 2px;
+  padding: 6px 15px;
+}
+*/
 .infoBox {
   border: 1px solid black;
   border-radius: 25px;
