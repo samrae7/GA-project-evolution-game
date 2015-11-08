@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>  
+<head>
+  <title>Evolution game</title>
+  <link rel="stylesheet" type="text/css" href="./css/evolution.css">
+  <script type="text/javascript" src="./js/jquery-2.1.4.js"></script>
+  <script type="text/javascript" src="./js/evolution.js"></script>
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400|Rock+Salt' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <header>
+    <h1>The Evolution Game</h1>
+  </header>
+  <div class='pageWrapper'>
+    <div class='introBox'>
+    <p>In this game you play the role of a young bird.</p>
+    <p>Your aim is to survive long enough to mate and reproduce.</p>
+    <img class='bugIconStart' src='./images/bug-icon.svg'>
+      <button name='start-button' id='start'>START</button>
+    </div>
+    <div class='gameScreen'>
+      <div class='field'></div>
+      <div class='timer'>
+        <div class='timerBar'></div>
+      </div>
+    </div>
+    <div class='infoBox'>
+      <div class='stats'></div>
+      <div class='tallyChart'></div>
+      <div class='graph'>
+        <h3>Green bugs over time</h3>
+        <div class='chart'>
+          <div class='column'>
+            <div class='bar' id='pop1'></div>
+          </div>
+          <div class='column'>
+            <div class='bar' id='pop2'></div>
+          </div>
+          <div class='column'>
+            <div class='bar' id='pop3'></div>
+          </div>
+          <div class='column'>
+            <div class='bar' id='pop4'></div>
+          </div>
+        </div>
+        <div class='xAxis'><p>Year</p></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
