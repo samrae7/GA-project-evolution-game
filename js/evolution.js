@@ -9,7 +9,7 @@ $(document).on('ready',function() {
 
     round1: {
       number:1, 
-      target: 4,
+      target: 5,
       bugsGreen: 1,
       bugsBlue: 15,
       bugsEatenTotal: 0,
@@ -23,7 +23,7 @@ $(document).on('ready',function() {
 
     round2: {
       number:2,
-      target: 5,
+      target: 6,
       bugsGreen:0,
       bugsBlue:0,
       bugsEatenTotal: 0,
