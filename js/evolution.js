@@ -77,7 +77,7 @@ $(document).on('ready',function() {
     bug.addClass('bug');
     bug.addClass(colour+'Bug');
     var imageChoice = Math.ceil(Math.random()*4);
-    bug.html('<img src="../images/'+colour+'-bug'+imageChoice+'.png">')
+    bug.html('<img src="./images/'+colour+'-bug'+imageChoice+'.png">')
     bug.css('top',randomHeight())
     bug.css('left',randomWidth())
     $('.field').append(bug);
